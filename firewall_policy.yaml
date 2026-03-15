@@ -1,0 +1,17 @@
+version: "v0.2"
+enforcement_mode: "blocking"
+latency_budget_ms: 10
+
+provenance_layer:
+  require_execution_id_binding: true
+  max_token_age_seconds: 300
+
+normalization_layer:
+  max_recursion_depth: 3
+  block_on_depth_exceeded: true
+
+lexical_layer:
+  - id: "sys_prompt_override"
+    type: "regex"
+    pattern: "(?i)(ignore previous instructions|system prompt)"
+    action: "SHORT_CIRCUIT_BLOCK"
